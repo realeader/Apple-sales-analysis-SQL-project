@@ -1,59 +1,73 @@
-# Apple-sales-analysis-SQL-project
-![apple images](https://github.com/user-attachments/assets/c8016141-411d-43a7-9a27-6e198811efbb)
 
-This project showcases advanced SQL querying techniques through the analysis of a large-scale Apple retail sales dataset containing over 1 million rows. The dataset encompasses detailed information about products, stores, sales transactions, and warranty claims from Apple retail locations worldwide.
+---
 
-By working through a diverse set of questions ranging from fundamental to complex, this project demonstrates proficiency in writing sophisticated SQL queries to extract actionable insights from extensive data.
+# Apple Sales Analysis SQL Project
+
+![Apple Retail](https://github.com/user-attachments/assets/c8016141-411d-43a7-9a27-6e198811efbb)
+
+This project demonstrates advanced SQL querying techniques applied to a large-scale Apple retail sales dataset containing **over 1 million rows**. The dataset includes detailed information about products, stores, sales transactions, and warranty claims from Apple retail locations worldwide.
+
+By addressing a diverse range of questions—from fundamental to complex—this project showcases proficiency in crafting sophisticated SQL queries that extract valuable business insights from extensive data.
+
+---
 
 ## Database Schema
+
 The project uses five main tables:
 
-stores: Contains information about Apple retail stores.
+### stores
 
-store_id: Unique identifier for each store.
-store_name: Name of the store.
-city: City where the store is located.
-country: Country of the store.
-category: Holds product category information.
+* **store\_id:** Unique identifier for each store
+* **store\_name:** Name of the store
+* **city:** City where the store is located
+* **country:** Country of the store
 
-category_id: Unique identifier for each product category.
-category_name: Name of the category.
-products: Details about Apple products.
+### category
 
-product_id: Unique identifier for each product.
-product_name: Name of the product.
-category_id: References the category table.
-launch_date: Date when the product was launched.
-price: Price of the product.
-sales: Stores sales transactions.
+* **category\_id:** Unique identifier for each product category
+* **category\_name:** Name of the category
 
-sale_id: Unique identifier for each sale.
-sale_date: Date of the sale.
-store_id: References the store table.
-product_id: References the product table.
-quantity: Number of units sold.
-warranty: Contains information about warranty claims.
+### products
 
-claim_id: Unique identifier for each warranty claim.
-claim_date: Date the claim was made.
-sale_id: References the sales table.
-repair_status: Status of the warranty claim (e.g., Paid Repaired, Warranty Void).
+* **product\_id:** Unique identifier for each product
+* **product\_name:** Name of the product
+* **category\_id:** Foreign key referencing `category`
+* **launch\_date:** Date when the product was launched
+* **price:** Price of the product
+
+### sales
+
+* **sale\_id:** Unique identifier for each sale
+* **sale\_date:** Date of the sale
+* **store\_id:** Foreign key referencing `stores`
+* **product\_id:** Foreign key referencing `products`
+* **quantity:** Number of units sold
+
+### warranty
+
+* **claim\_id:** Unique identifier for each warranty claim
+* **claim\_date:** Date the claim was made
+* **sale\_id:** Foreign key referencing `sales`
+* **repair\_status:** Status of the warranty claim (e.g., Paid Repaired, Warranty Void)
+
+---
 
 ## Project Focus
-This project primarily focuses on developing and showcasing the following SQL skills:
 
-Complex Joins and Aggregations: Demonstrating the ability to perform complex SQL joins and aggregate data meaningfully.
-Window Functions: Using advanced window functions for running totals, growth analysis, and time-based queries.
-Data Segmentation: Analyzing data across different time frames to gain insights into product performance.
-Correlation Analysis: Applying SQL functions to determine relationships between variables, such as product price and warranty claims.
-Real-World Problem Solving: Answering business-related questions that reflect real-world scenarios faced by data analysts.
+This project highlights expertise in:
 
-## Dataset
-Size: 1 million+ rows of sales data.
-Period Covered: The data spans multiple years, allowing for long-term trend analysis.
-Geographical Coverage: Sales data from Apple stores across various countries.
+* **Complex Joins & Aggregations:** Performing multi-table joins and meaningful aggregations.
+* **Window Functions:** Utilizing advanced window functions for running totals, ranking, and time-based analyses.
+* **Data Segmentation:** Segmenting data across different time frames to analyze product and store performance.
+* **Correlation Analysis:** Exploring relationships such as product price vs. warranty claims.
+* **Real-World Problem Solving:** Answering practical business questions faced by analysts.
 
+---
 
+## Dataset Overview
 
+* **Size:** Over 1 million rows of sales data
+* **Time Span:** Multiple years of historical data for trend analysis
+* **Geographical Coverage:** Apple retail locations across various countries worldwide
 
-
+---
