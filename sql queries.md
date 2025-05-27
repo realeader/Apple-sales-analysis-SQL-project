@@ -2,6 +2,7 @@
 
 
 ### Apple Sales Project - 1M rows sales datasets
+
 ```sql
 USE apple_db;
 
@@ -12,17 +13,18 @@ SELECT * FROM sales;
 SELECT * FROM warranty;
 
 ```
--- EDA
+##### EDA
 ```sql
 SELECT DISTINCT repair_status FROM warranty;
 SELECT COUNT(*) FROM sales;
 ```
 
--- Improving Query Performance 
+###### Improving Query Performance 
 
 -- et - 64.ms
 -- pt - 0.15ms
 -- et after index 5-10 ms
+
 ```sql
 EXPLAIN
 SELECT * FROM sales
@@ -39,6 +41,7 @@ CREATE INDEX sales_sale_date ON sales(sale_date);
 -- pt - 0.069
 -- et after index 2 ms
 ```sql
+
 EXPLAIN
 SELECT * FROM sales
 WHERE store_id = 'ST-31';
@@ -56,7 +59,7 @@ ORDER BY total_stores DESC;
 
 ```
 
--- Q.2 Calculate the total number of units sold by each store.
+#### Q.2 Calculate the total number of units sold by each store.
 ```sql
 SELECT 
 	s.store_id,
@@ -67,7 +70,7 @@ JOIN stores as st ON st.store_id = s.store_id
 GROUP BY s.store_id, st.store_name
 ORDER BY total_unit_sold DESC;
 ```
--- Q.3 Identify how many sales occurred in December 2023.
+#### Q.3 Identify how many sales occurred in December 2023.
 ```sql
 SELECT 
 	COUNT(sale_id) as total_sale 
@@ -75,7 +78,7 @@ FROM sales
 WHERE DATE_FORMAT(sale_date, '%m-%Y') = '12-2023';
 ```
 
--- Q.4 Determine how many stores have never had a warranty claim failed.
+#### Q.4 Determine how many stores have never had a warranty claim failed.
 ```sql
 SELECT COUNT(*) FROM stores
 WHERE store_id NOT IN (
@@ -86,7 +89,7 @@ WHERE store_id NOT IN (
 
 ```
 
--- Q.5 Calculate the percentage of warranty claims marked as "Warranty Void".
+#### Q.5 Calculate the percentage of warranty claims marked as "Warranty Void".
 ```sql
 SELECT 
 	ROUND(
@@ -96,7 +99,7 @@ FROM warranty
 WHERE repair_status = 'Warranty Void';
 
 ```
--- Q.6 Identify which store had the highest total units sold in the last year.
+#### Q.6 Identify which store had the highest total units sold in the last year.
 ```sql
 SELECT 
 	s.store_id,
@@ -109,14 +112,14 @@ GROUP BY s.store_id, st.store_name
 ORDER BY total_qty DESC
 LIMIT 1;
 ```
--- Q.7 Count the number of unique products sold in the last year.
+#### Q.7 Count the number of unique products sold in the last year.
 ```sql
 SELECT 
 	COUNT(DISTINCT product_id) as unique_products
 FROM sales
 WHERE sale_date >= CURDATE() - INTERVAL 1 YEAR;
 ```
--- Q.8 Find the average price of products in each category.
+#### Q.8 Find the average price of products in each category.
 ```sql
 SELECT 
 	p.category_id,
@@ -127,14 +130,14 @@ JOIN category as c ON p.category_id = c.category_id
 GROUP BY p.category_id, c.category_name
 ORDER BY avg_price DESC;
 ```
--- Q.9 How many warranty claims were filed in 2020?
+#### Q.9 How many warranty claims were filed in 2020?
 ```sql
 SELECT 
 	COUNT(*) as warranty_claim
 FROM warranty
 WHERE YEAR(claim_date) = 2020;
 ```
--- Q.10 For each store, identify the best-selling day based on highest quantity sold.
+#### Q.10 For each store, identify the best-selling day based on highest quantity sold.
 
 ```sql
 SELECT * FROM (
@@ -149,7 +152,7 @@ SELECT * FROM (
 WHERE `rank` = 1;
 ```
 
--- Q.11 Identify the least selling product in each country for each year based on total units sold.
+#### Q.11 Identify the least selling product in each country for each year based on total units sold.
 ```sql
 
 SELECT
@@ -174,7 +177,7 @@ ORDER BY st.country, total_qty_sold;
 
 ```
 
-############# Another solution##############
+#### Another solution
 
 ```sql
 SELECT country, year, product_id, total_unit_sold
@@ -194,10 +197,10 @@ FROM (
 ) t
 WHERE rnk = 1;
 ```
-#########################################
 
 
--- Q.12 Calculate how many warranty claims were filed within 180 days of a product sale.
+
+#### Q.12 Calculate how many warranty claims were filed within 180 days of a product sale.
 ```sql
 SELECT 
 	COUNT(*) as claim_within_180
@@ -205,7 +208,7 @@ FROM warranty as w
 LEFT JOIN sales as s ON s.sale_id = w.sale_id
 WHERE DATEDIFF(w.claim_date, s.sale_date) <= 180;
 ```
--- Q.13 Determine how many warranty claims were filed for products launched in the last two years.
+#### Q.13 Determine how many warranty claims were filed for products launched in the last two years.
 
 ```sql
 SELECT 
@@ -219,7 +222,7 @@ WHERE p.launch_date >= CURDATE() - INTERVAL 2 YEAR
 GROUP BY p.product_name
 HAVING no_claim > 0;
 ```
--- Q.14 List the months in the last three years where sales exceeded 5,000 units in the USA.
+#### Q.14 List the months in the last three years where sales exceeded 5,000 units in the USA.
 ```sql
 
 SELECT 
@@ -232,7 +235,7 @@ GROUP BY month
 HAVING total_unit_sold > 5000;
 
 ```
-####-- Q.15 Identify the product category with the most warranty claims filed in the last two years.
+#### Q.15 Identify the product category with the most warranty claims filed in the last two years.
 ```sql
 
 SELECT 
@@ -249,7 +252,7 @@ GROUP BY c.category_name;
 
 
 
--- Q.16 Determine the percentage chance of receiving warranty claims after each purchase for each country!
+#### Q.16 Determine the percentage chance of receiving warranty claims after each purchase for each country!
 ```sql
 
 SELECT 
@@ -269,7 +272,7 @@ FROM (
 ) t1
 ORDER BY risk DESC;
 ```
-########3-- Q.17 Analyze the year-by-year growth ratio for each store.
+#### Q.17 Analyze the year-by-year growth ratio for each store.
 
 ```sql
 WITH yearly_sales AS (
@@ -300,7 +303,7 @@ SELECT
 FROM growth_ratio
 WHERE last_year_sale IS NOT NULL AND year <> YEAR(CURDATE());
 ```
-######-- Q.18 Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
+#### Q.18 Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
 ```sql
 
 SELECT 
@@ -317,7 +320,7 @@ WHERE w.claim_date >= CURDATE() - INTERVAL 5 YEAR
 GROUP BY price_segment;
 
 ```
--- Q.19 Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed
+#### Q.19 Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed
 ```sql
 
 WITH paid_repair AS (
