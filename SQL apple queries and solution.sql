@@ -204,7 +204,9 @@ GROUP BY month
 HAVING total_unit_sold > 5000;
 
 ####-- Q.15 Identify the product category with the most warranty claims filed in the last two years.
-```SELECT 
+```sql
+
+SELECT 
 	c.category_name,
 	COUNT(w.claim_id) as total_claims
 FROM warranty as w
