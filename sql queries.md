@@ -1,7 +1,7 @@
 ## Queries and solution
 
 
--- Apple Sales Project - 1M rows sales datasets
+### Apple Sales Project - 1M rows sales datasets
 ```sql
 USE apple_db;
 
