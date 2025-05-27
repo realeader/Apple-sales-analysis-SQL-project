@@ -41,13 +41,14 @@ WHERE store_id = 'ST-31';
 -- Medium Problems
 
 -- 1. Find the number of stores in each country.
+```sql
 SELECT 
 	country,
 	COUNT(store_id) as total_stores
 FROM stores
 GROUP BY country
 ORDER BY total_stores DESC;
-
+```
 
 
 
