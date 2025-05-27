@@ -45,7 +45,7 @@ WHERE store_id = 'ST-31';
 ```
 
 
--- 1. Find the number of stores in each country.
+#### 1. Find the number of stores in each country.
 ```sql
 SELECT 
 	country,
